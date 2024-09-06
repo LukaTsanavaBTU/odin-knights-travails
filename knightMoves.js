@@ -16,11 +16,11 @@ function possibleMoves(x, y) {
     for (let i = -1; i <= 1; i += 2) {
         for (let j = -2; j <= 2; j += 4) {
             let move = [x + i, y + j];
-            if (move[0] <= 7 || move[0] >= 0 || move[1] <= 7 || move[1] >= 0) {
+            if (move[0] <= 7 && move[0] >= 0 && move[1] <= 7 && move[1] >= 0) {
                 movesArray.push(move);
             }
             move = [x + j, y + i];
-            if (move[0] <= 7 || move[0] >= 0 || move[1] <= 7 || move[1] >= 0) {
+            if (move[0] <= 7 && move[0] >= 0 && move[1] <= 7 && move[1] >= 0) {
                 movesArray.push(move);
             }
         }
@@ -28,4 +28,13 @@ function possibleMoves(x, y) {
     return movesArray; 
 }
 
-console.log(possibleMoves(3, 2));
+function adjacencyList() {
+    const list = [];
+    for (let i = 0; i < 64; i++) {
+        list.push(possibleMoves(...indexConverter(i)));
+    }
+    return list;
+}
+
+
+console.log(adjacencyList());
