@@ -40,37 +40,37 @@ const list = adjacencyList();
 
 // function recursiveSearch(startIdx, targetIdx) {
     // for (let i = 0; i < list[startIdx].length; i++) {
-    //     if (movesList.includes(list[startIdx][i])) {
+    //     if (beenTo.includes(list[startIdx][i])) {
     //         continue;
     //     }
     //     console.log(list[startIdx][i], targetIdx);
     //     if (list[startIdx][i] === targetIdx) {
-    //         movesList.push(list[startIdx][i]);
-    //         return movesList;
+    //         beenTo.push(list[startIdx][i]);
+    //         return beenTo;
     //     }
-    //     movesList.push(list[startIdx][i]);
-    //     recursiveSearch(list[startIdx][i], targetIdx, movesList);
+    //     beenTo.push(list[startIdx][i]);
+    //     recursiveSearch(list[startIdx][i], targetIdx, beenTo);
     // }
 // }
 
 function knightMoves(start, target) {
     const startIdx = coordinateConverter(...start);
     const targetIdx = coordinateConverter(...target);
-    const movesList = [];
-    const queue = [startIdx];
+    const beenTo = [];
+    const queue = [[startIdx]];
     let currIdx;
     while (queue.length !== 0) {
-        currIdx = queue.shift();
-        movesList.push(currIdx);
+        path = queue.shift();
+        currIdx = path.at(-1);
+        beenTo.push(currIdx);
         for (let i = 0; i < list[currIdx].length; i++) {
-            if (movesList.includes(list[currIdx][i])) {
+            if (beenTo.includes(list[currIdx][i])) {
                 continue;
             }
             if (list[currIdx][i] === targetIdx) {
-                movesList.push(list[currIdx][i]);
-                return movesList.map((idx) => indexConverter(idx));
+                return path.concat(list[currIdx][i]).map((idx) => indexConverter(idx));
             }
-            queue.push(list[currIdx][i]);
+            queue.push(path.concat(list[currIdx][i]));
         }
     }
 }
